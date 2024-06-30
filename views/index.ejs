@@ -74,7 +74,7 @@ h1 {
 <h1>THE TOP 99</h1>
 <% lister.forEach((item) => { %>
     <div class="box" onclick="playable(this)">
-       <audio src="music/<%= item.file %>"></audio>
+       <audio src="music/<%= item.file %>" preload="none"></audio>
        <img src="<%= item.picture %>" />
        <h4><%= item.title %></h4>
        <p><%= item.artist %></p>
@@ -100,6 +100,7 @@ function playable(data) {
   }
   if(audEle.paused) {
     audEle.currentTime = 0;
+    audEle.load();
     audEle.play();
     curPlay = audEle;
     i2Play.innerHTML = pause;
