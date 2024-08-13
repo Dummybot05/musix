@@ -7,10 +7,7 @@ export const meta = async(filNam) => {
     let picData = metadata.common.picture[0].data;
     const finalOutput = {
        file : filNam,
-       duration : metadata.format.duration,
        title : metadata.common.title,
-       album : metadata.common.album,
-       artists : metadata.common.artists,
        artist : metadata.common.artist,
        picture : `data:${picFormat};base64,${picData.toString('base64')}`
     }
