@@ -1,117 +1,119 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Music Player</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="style.css" />
-    <style>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<style>
 body {
     margin:0;
     padding:0;
+    display:flex;
+    justify-content:center;
     font-family:Helvetica;
 }
-.box {
-    width:100vw;
-    height:18vw;
+
+#main-container {
+    width:360px;
+    height:200px;
+}
+
+#main-container>div {
+    width:calc(100% - 4px);
+    height:60px;
+    background-color:#f9f9f9;
+    border:2px solid #f1f1f1;
+    border-radius:8px;
+    margin:5px 0px;
     position:relative;
 }
-.box img {
-    width:14vw;
-    height:14vw;
-    position:absolute;
-    border-radius:2vw;
-    border:0.2vw solid grey;
-    top:1.9vw;
-    left:2.9vw;
-    object-fit:cover;
-}
-.box h4 {
-    margin:0;
-    position:absolute;
-    left:20vw;
-    top:4vw;
-    width: 60vw;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.box p {
-    margin:0;
-    position:absolute;
-    left:20vw;
-    bottom:4vw;
-    color:grey;
-    width: 60vw;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.box div {
-    width:10vw;
-    height:10vw;
-    position:absolute;
-    top:3.9vw;
-    right:2.9vw;
-}
-.box div svg {
-    width: 100%;
-    height: 100%;
-}
-h1 {
-    text-align:center;
-    margin:0;
-    position:fixed;
-    background-color:white;
-    width:100vw;
-    padding: 4vw 0vw;
-    z-index:10;
-    box-shadow:0px 5px 8px #e2e2e2;
-}
-    </style>
-  </head>
-  <body>
-<h1>THE TOP 99</h1>
-<% lister.forEach((item) => { %>
-    <div class="box" onclick="playable(this)">
-       <audio src="music/<%= item.file %>" preload="none"></audio>
-       <img src="<%= item.picture %>" />
-       <h4><%= item.title %></h4>
-       <p><%= item.artist %></p>
-       <div>
-           <svg width="64px" height="64px" viewBox="-11.08 -11.08 50.16 50.16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.4086 9.35258C23.5305 10.5065 23.5305 13.4935 21.4086 14.6474L8.59662 21.6145C6.53435 22.736 4 21.2763 4 18.9671L4 5.0329C4 2.72368 6.53435 1.26402 8.59661 2.38548L21.4086 9.35258Z" fill="#000000"></path> </g></svg>
-       </div>  
-    </div>
-<% }) %>
-    <script>
-var pause = `<svg width="78px" height="78px" viewBox="-13.44 -13.44 50.88 50.88" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 6C2 4.11438 2 3.17157 2.58579 2.58579C3.17157 2 4.11438 2 6 2C7.88562 2 8.82843 2 9.41421 2.58579C10 3.17157 10 4.11438 10 6V18C10 19.8856 10 20.8284 9.41421 21.4142C8.82843 22 7.88562 22 6 22C4.11438 22 3.17157 22 2.58579 21.4142C2 20.8284 2 19.8856 2 18V6Z" fill="#1C274C"></path> <path d="M14 6C14 4.11438 14 3.17157 14.5858 2.58579C15.1716 2 16.1144 2 18 2C19.8856 2 20.8284 2 21.4142 2.58579C22 3.17157 22 4.11438 22 6V18C22 19.8856 22 20.8284 21.4142 21.4142C20.8284 22 19.8856 22 18 22C16.1144 22 15.1716 22 14.5858 21.4142C14 20.8284 14 19.8856 14 18V6Z" fill="#1C274C"></path> </g></svg>`;
-var play = `<svg width="64px" height="64px" viewBox="-11.08 -11.08 50.16 50.16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.4086 9.35258C23.5305 10.5065 23.5305 13.4935 21.4086 14.6474L8.59662 21.6145C6.53435 22.736 4 21.2763 4 18.9671L4 5.0329C4 2.72368 6.53435 1.26402 8.59661 2.38548L21.4086 9.35258Z" fill="#000000"></path> </g></svg>`;
 
-var curPlay = null;
-var iconPlay = null;
-function playable(data) {
-  var audEle = data.querySelector('audio'); 
-  var i2Play = data.querySelector('div');
-  if(curPlay && curPlay !== audEle) {
-    curPlay.pause();
+#main-container>div>img {
+    width:50px;
+    height:50px;
+    border-radius:4px;
+    position:absolute;
+    top:5px;
+    left:10px;
+}
+
+#main-container>div>div {
+    width:50px;
+    height:50px;
+    border-radius:4px;
+    position:absolute;
+    top:5px;
+    right:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color:#f1f1f1;
+}
+
+#main-container>div>h4 {
+    position:absolute;
+    left:70px;
+    margin:0;
+    top:10px;
+    width:220px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#main-container>div>p {
+    position:absolute;
+    left:70px;
+    margin:0;
+    bottom:10px;
+    color:#777;
+    width:220px;
+    overflow:hidden;
+    font-size:0.9rem;
+}
+</style>
+<title>Songs</title>
+<script src="https://kit.fontawesome.com/1a02557296.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="main-container">
+<% lister.forEach((item, index) => { %>
+<div onclick="playAudio(event, 'audio<%= index %>')">
+    <audio id="audio<%= index %>" src="music/<%= item.file %>" preload="none"></audio>
+    <img src="<%= item.picture %>" />
+    <h4><%= item.title %></h4>
+    <p><%= item.artist %></p>
+    <div>
+      <i class="fa-solid fa-play"></i>
+    </div>
+</div>
+<% }) %>
+
+</div>
+<script>
+
+let currentlyPlaying = null;
+
+function playAudio(event, audioId) {
+  const newAudio = document.getElementById(audioId);
+  const btn = event.currentTarget.querySelector('div');
+  if (currentlyPlaying && currentlyPlaying !== newAudio) {
+   currentlyPlaying.pause();
+   currentlyPlaying.currentTime = 0;
+   var fourthSibling = currentlyPlaying.nextElementSibling?.nextElementSibling?.nextElementSibling?.nextElementSibling;
+   fourthSibling.innerHTML = `<i class="fa-solid fa-play"></i>`;
   }
-  if(iconPlay && iconPlay !== i2Play) {    
-     iconPlay.innerHTML = play;
-  }
-  if(audEle.paused) {
-    audEle.currentTime = 0;
-    audEle.load();
-    audEle.play();
-    curPlay = audEle;
-    i2Play.innerHTML = pause;
-    iconPlay = i2Play;
+
+  if (newAudio.paused) {
+    newAudio.play();
+    currentlyPlaying = newAudio;
+    btn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
   } else {
-    audEle.pause();
-    curPlay = null;
-    i2Play.innerHTML = play;
-    iconPlay = null;
+    newAudio.pause();
+    currentlyPlaying = null;
+    btn.innerHTML = `<i class="fa-solid fa-play"></i>`;
   }
 }
-    </script>
-  </body>
+
+</script>
+</body>
 </html>
