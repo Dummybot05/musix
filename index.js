@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 
 const PORT = process.env.PORT || 3000
 const app = express()
-
+var counter = 0;
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('./public'))
 app.set('view engine', 'ejs')
@@ -19,5 +19,6 @@ app.get('/', async(req, res) => {
       });
   });
 });
-
+console.log(counter);
+counter += 1;
 app.listen(PORT, () => { console.log("Started...") })
